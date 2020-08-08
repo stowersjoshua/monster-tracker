@@ -1,0 +1,8 @@
+{
+  "name": "Goblin Ambush!",
+  "monsters": [
+    { "name": "Goblin 1", "race": "goblin", "max_health": "8" },
+    { "name": "Goblin 2", "race": "goblin", "max_health": "8" },
+    { "name": "Goblin 3", "race": "goblin", "max_health": "8" }
+  ]
+}

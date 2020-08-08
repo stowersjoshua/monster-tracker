@@ -13,3 +13,5 @@ bundle install
 ```bash
 ruby track_health.rb
 ```
+
+You can find example encounter files in `data/encounters`.
