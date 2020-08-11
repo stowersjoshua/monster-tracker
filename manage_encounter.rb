@@ -6,6 +6,15 @@ require 'json'
 SAFE_FILENAME_CHARACTERS = /[\w-]/.freeze
 ENCOUNTERS_DIRECTORY = 'data/encounters'
 
+def write_encounter_file(encounter_data)
+  encounter_name = encounter_data[:name]
+  encounter_filename = sanitize_filename(encounter_name, extension: 'json')
+  encounter_file_destination = "#{ENCOUNTERS_DIRECTORY}/#{encounter_filename}"
+  File.write(encounter_file_destination, encounter_data.to_json)
+
+  puts "Printed encounter info to #{encounter_file_destination}"
+end
+
 def sanitize_filename(base_name, extension: nil)
   base_name = base_name.downcase.gsub(' ', '-')
   sanitized_filename = base_name.scan(SAFE_FILENAME_CHARACTERS).join
@@ -33,13 +42,6 @@ def request_encounter_name(message)
   end
 end
 
-# Collect encounter data
 encounter_name = request_encounter_name('Encounter Name:')
 encounter_data = { name: encounter_name }
-
-# Create JSON file
-encounter_filename = sanitize_filename(encounter_name, extension: 'json')
-encounter_file_destination = "#{ENCOUNTERS_DIRECTORY}/#{encounter_filename}"
-File.write(encounter_file_destination, encounter_data.to_json)
-
-puts encounter_filename
+write_encounter_file(encounter_data)
