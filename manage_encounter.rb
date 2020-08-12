@@ -1,3 +1,5 @@
+# TODO: Refactor Encounter and Monster to adopt some of this logic.
+
 require 'active_support/core_ext/string'
 require 'json'
 
@@ -73,13 +75,31 @@ def request_new_monster_data
   monster_name = request_monster_name
   monster_race = request_monster_race
   monster_max_health = request_monster_max_health
+
   { name: monster_name, race: monster_race, max_health: monster_max_health }
 end
 
+def user_accepts_continue_prompt?
+  puts 'Continue?'
+  response = gets.chomp.downcase
+
+  affirmative_responses = %w[y yes yeah sure ok]
+  affirmative_responses.include? response
+end
+
+# Request and Set Encounter Name
 encounter_name = request_encounter_name
 @encounter_data[:name] = encounter_name
 
+# Request and Set Info for First Monster
 monster_data = request_new_monster_data
 @encounter_data[:monsters] << monster_data
 
+# Request and Set Info for Additional Monsters
+while user_accepts_continue_prompt?
+  monster_data = request_new_monster_data
+  @encounter_data[:monsters] << monster_data
+end
+
+# Write Data to the Encounter File
 write_encounter_file(@encounter_data)
