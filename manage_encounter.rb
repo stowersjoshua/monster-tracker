@@ -56,7 +56,7 @@ def request_monster_race
   message << " (Default #{default_race})" if default_race.present?
 
   puts message
-  gets.chomp
+  gets.chomp.presence || default_race
 end
 
 def request_monster_max_health(message = 'Max Health:')
