@@ -22,12 +22,13 @@ def sanitize_filename(base_name, extension: nil)
   sanitized_filename = base_name.scan(SAFE_FILENAME_CHARACTERS).join
 
   return unless sanitized_filename.present?
+
   sanitized_filename << ".#{extension}" if extension.present?
 
   sanitized_filename
 end
 
-def encounter_name_valid? encounter_name
+def encounter_name_valid?(encounter_name)
   sanitized_name = sanitize_filename(encounter_name)
   sanitized_name.present?
 end
