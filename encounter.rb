@@ -7,11 +7,13 @@ require 'json'
 class Encounter
   attr_accessor :name, :monsters, :encounter_file
 
-  def initialize(encounter_file = nil)
+  def initialize(encounter_file = nil, name: nil)
     self.encounter_file = encounter_file
     self.monsters = []
 
     load_from_encounter_file
+
+    self.name = name if name.present?
   end
 
   def monster_names
