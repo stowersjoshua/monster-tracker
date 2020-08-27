@@ -1,13 +1,15 @@
 require_relative 'monster'
 
 require 'active_support/core_ext/string'
+require 'fileutils'
 require 'json'
 
 class Encounter
   attr_accessor :name, :monsters, :encounter_file
 
-  def initialize(encounter_file)
+  def initialize(encounter_file = nil)
     self.encounter_file = encounter_file
+    self.monsters = []
 
     load_from_encounter_file
   end
@@ -30,6 +32,6 @@ class Encounter
     end
 
     self.name = encounter_data['name']
-    self.monsters = monsters
+    self.monsters.concat(monsters)
   end
 end
