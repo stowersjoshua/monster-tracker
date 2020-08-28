@@ -9,4 +9,8 @@ class Monster
 
     @health = @max_health
   end
+
+  def data
+    { name: name, race: race, max_health: max_health, current_health: current_health }
+  end
 end
