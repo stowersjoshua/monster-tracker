@@ -1,0 +1,237 @@
+AllCops:
+  Exclude:
+    - 'data/*'
+    - 'data/**/*'
+
+# Commonly used screens these days easily fit more than 80 characters.
+Layout/LineLength:
+  Max: 120
+
+# Too short methods lead to extraction of single-use methods, which can make
+# the code easier to read (by naming things), but can also clutter the class
+Metrics/MethodLength:
+  Max: 20
+
+# The guiding principle of classes is SRP, SRP can't  be accurately measured by LoC
+Metrics/ClassLength:
+  Max: 350
+
+# Single quotes being faster is hardly measurable and only affects parse time.
+# Enforcing double quotes reduces the times where you need to change them
+# when introducing an interpolation. Use single quotes only if their semantics
+# are needed.
+Style/StringLiterals:
+  EnforcedStyle: single_quotes
+
+# We do not need to support Ruby 1.9, so this is good to use.
+Style/SymbolArray:
+  Enabled: true
+
+# Mixing the styles looks just silly.
+Style/HashSyntax:
+  EnforcedStyle: ruby19_no_mixed_keys
+
+# has_key? and has_value? are far more readable than key? and value?
+Style/PreferredHashMethods:
+  Enabled: false
+
+# A specialized exception class will take one or more arguments and construct the message from it.
+# So both variants make sense.
+Style/RaiseArgs:
+  Enabled: false
+
+# Indenting the chained dots beneath each other is not supported by this cop,
+# see https://github.com/bbatsov/rubocop/issues/1633
+Layout/MultilineOperationIndentation:
+  Enabled: false
+
+# Fail is an alias of raise. Avoid aliases, it's more cognitive load for no gain.
+# The argument that fail should be used to abort the program is wrong too,
+# there's Kernel#abort for that.
+Style/SignalException:
+  EnforcedStyle: only_raise
+
+# Suppressing exceptions can be perfectly fine, and be it to avoid to
+# explicitly type nil into the rescue since that's what you want to return,
+# or suppressing LoadError for optional dependencies
+Lint/SuppressedException:
+  Enabled: false
+
+# Limiting variable names to just a single letter? Absolutely not.
+Style/SingleLineBlockParams:
+  Enabled: false
+
+# Check with yard instead.
+Style/Documentation:
+  Enabled: false
+
+# This is just silly. Calling the argument `other` in all cases makes no sense.
+Naming/BinaryOperatorParameterName:
+  Enabled: false
+
+# These are ugly and inconvenient for those of us that like to use "prepend" a lot.
+Style/FrozenStringLiteralComment:
+  Enabled: false
+
+# section_1 is easier to read than section1
+Naming/VariableNumber:
+  EnforcedStyle: snake_case
+
+# This sounded nice at first.. but `Foo::bar` is functionally different from `module Foo; class Bar`
+Style/ClassAndModuleChildren:
+  Enabled: false
+
+# Cop exceptions are reset at the end of each file anyways
+Lint/MissingCopEnableDirective:
+  Enabled: false
+
+# Lear more here: http://wiki.c2.com/?AbcMetric
+# It includes things like `=`, which we use to keep logic simple
+Metrics/AbcSize:
+  Max: 25
+
+# Don't require parentheses on methods ending with `!` or `?`
+Style/MethodCallWithArgsParentheses:
+  IgnoredPatterns: (\!|\?)$
+
+# Breaks no-parenthesis convention for DSLs
+Lint/AmbiguousOperator:
+  Enabled: false
+
+# Checks for a newline after an attribute accessor or a group of them.
+Layout/EmptyLinesAroundAttributeAccessor:
+  Enabled: true
+
+# Checks method call operators to not have spaces around them.
+Layout/SpaceAroundMethodCallOperator:
+  Enabled: true
+
+# Algorithmic constants for OpenSSL::Cipher and OpenSSL::Digest deprecated since OpenSSL version 2.2.0.
+# Prefer passing a string instead. This is most likely unnecessary for us, however it's not bad to have.
+Lint/DeprecatedOpenSSLConstant:
+  Enabled: true
+
+# Do not mix named captures and numbered captures in a Regexp literal because numbered capture is ignored if they’re mixed.
+# Replace numbered captures with non-capturing groupings or named captures.
+Lint/MixedRegexpCaptureTypes:
+  Enabled: true
+
+# This cop checks for raise or fail statements which are raising Exception class.
+# The problem with rescuing Exception is that it actually rescues every exception that inherits from Exception.
+Lint/RaiseException:
+  Enabled: true
+
+# This cop checks unexpected overrides of the Struct built-in methods via Struct.new.
+# This could otherwise be hard to catch.
+Lint/StructNewOverride:
+  Enabled: true
+
+# Enforces a mantissa between 1 (inclusive) and 10 (exclusive).
+Style/ExponentialNotation:
+  Enabled: true
+  EnforcedStyle: scientific
+
+# Disabling this one because it is considered unsafe.
+# https://docs.rubocop.org/rubocop/cops_style.html#stylehasheachmethods
+Style/HashEachMethods:
+  Enabled: false
+
+# Disabling this one because it is considered unsafe.
+# https://docs.rubocop.org/rubocop/cops_style.html#stylehashtransformkeys
+Style/HashTransformKeys:
+  Enabled: false
+
+# Disabling this one because it is considered unsafe.
+# https://docs.rubocop.org/rubocop/cops_style.html#stylehashtransformvalues
+Style/HashTransformValues:
+  Enabled: false
+
+# This cop checks for unnecessary single-element Regexp character classes.
+Style/RedundantRegexpCharacterClass:
+  Enabled: true
+
+# This cop checks for redundant escapes inside Regexp literals.
+Style/RedundantRegexpEscape:
+  Enabled: true
+
+# This requires Ruby 2.6. We currently use 2.5.
+Style/SlicingWithRange:
+  Enabled: false
+
+# NEW RUBOCOP FLAGS - START
+# These flags are new and unfamiliar.
+# I'm taking my first swing at these but may not like the results.
+
+Lint/BinaryOperatorWithIdenticalOperands:
+  Enabled: false
+
+Lint/DuplicateElsifCondition:
+  Enabled: true
+
+Lint/DuplicateRescueException:
+  Enabled: true
+
+Lint/EmptyConditionalBody:
+  Enabled: true
+
+Lint/FloatComparison:
+  Enabled: true
+
+Lint/MissingSuper:
+  Enabled: true
+
+Lint/OutOfRangeRegexpRef:
+  Enabled: true
+
+Lint/SelfAssignment:
+  Enabled: false
+
+Lint/TopLevelReturnWithArgument:
+  Enabled: true
+
+Lint/UnreachableLoop:
+  Enabled: true
+
+Style/AccessorGrouping:
+  Enabled: true
+
+Style/ArrayCoercion:
+  Enabled: true
+
+Style/BisectedAttrAccessor:
+  Enabled: true
+
+Style/CaseLikeIf:
+  Enabled: true
+
+Style/ExplicitBlockArgument:
+  Enabled: false
+
+Style/GlobalStdStream:
+  Enabled: true
+
+Style/HashAsLastArrayItem:
+  Enabled: true
+
+Style/HashLikeCase:
+  Enabled: false
+
+Style/OptionalBooleanParameter:
+  Enabled: false
+
+Style/RedundantAssignment:
+  Enabled: true
+
+Style/RedundantFetchBlock:
+  Enabled: true
+
+Style/RedundantFileExtensionInRequire:
+  Enabled: true
+
+Style/SingleArgumentDig:
+  Enabled: true
+
+Style/StringConcatenation:
+  Enabled: false
+
+# NEW RUBOCOP FLAGS - STOP

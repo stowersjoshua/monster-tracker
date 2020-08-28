@@ -1,17 +1,16 @@
-# TODO: Refactor Encounter and Monster to adopt some of this logic.
+require_relative 'config'
 
 require 'active_support/core_ext/string'
 require 'json'
 
 SAFE_FILENAME_CHARACTERS = /[\w-]/.freeze
-ENCOUNTERS_DIRECTORY = 'data/encounters'.freeze
 
 @encounter_data = { monsters: [] }
 
 def write_encounter_file(encounter_data)
   encounter_name = encounter_data[:name]
   encounter_filename = sanitize_filename(encounter_name, extension: 'json')
-  encounter_file_destination = "#{ENCOUNTERS_DIRECTORY}/#{encounter_filename}"
+  encounter_file_destination = "#{Config::ENCOUNTERS_DIRECTORY}/#{encounter_filename}"
   File.write(encounter_file_destination, encounter_data.to_json)
 
   puts "Printed encounter info to ./#{encounter_file_destination}"
