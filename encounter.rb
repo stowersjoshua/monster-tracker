@@ -1,7 +1,6 @@
 require_relative 'monster'
 
 require 'active_support/core_ext/string'
-require 'fileutils'
 require 'json'
 
 class Encounter
@@ -18,6 +17,11 @@ class Encounter
 
   def monster_names
     monsters.map { |monster| monster.name }
+  end
+
+  def data
+    monster_data = monsters.map(&:data)
+    { name: name, monsters: monster_data }
   end
 
   private
