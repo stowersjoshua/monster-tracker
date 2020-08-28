@@ -24,6 +24,11 @@ class Encounter
     { name: name, monsters: monster_data }
   end
 
+  def save!
+    json_data = JSON.pretty_generate(data)
+    File.write(encounter_file, json_data)
+  end
+
   private
 
   def load_from_encounter_file
